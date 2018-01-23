@@ -1,0 +1,7 @@
+ID: 1 Optimal name: B. Kamins Purifying Toner-6 oz. Feature: 6 oz
+ID: 2 Optimal name: Vichy Laboratoires Purete Thermale Perfecting Toner
+ID: 3 Optimal name: Is Clinical Firming Complex
+ID: 4 Optimal name: Yon-Ka Contours - Nutri-Contour 0.53 oz Feature: 0.53 oz
+ID: 5 Optimal name: Vichy Liftactiv Supreme Night / Nuit 50 Ml / 1.5 Oz Brand
+ID: 6 Optimal name: Eminence Organics Citrus & Kale Potent C+E Masque NEW
+ID: 7 Optimal name: Dr. brandt Xtend Your Youth Lip Filler & Volumizer

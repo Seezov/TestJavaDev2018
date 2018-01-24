@@ -40,11 +40,6 @@ public class ProductManager implements Comparator<String> {
         return first + names.get(names.size() / 2).substring(1);
     }
 
-    @Override
-    public int compare(String s1, String s2) {
-        return s1.length() - s2.length();
-    }
-
     public static String getFeature(Pattern pattern, String optimalName) {
         String feature = "";
         Matcher matcher = pattern.matcher(optimalName);
@@ -52,5 +47,10 @@ public class ProductManager implements Comparator<String> {
             feature = matcher.group(0);
         }
         return feature;
+    }
+
+    @Override
+    public int compare(String s1, String s2) {
+        return s1.length() - s2.length();
     }
 }

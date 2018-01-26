@@ -5,4 +5,3 @@ ID: 4 Optimal name: Nutri-Contour Repairing Eyes & Lips Creme by Yonka for Unise
 ID: 5 Optimal name: Vichy LiftActiv DS Night Anti-Wrinkle Face Cream Rhamnose Complete Care 50 Ml
 ID: 6 Optimal name: Eminence Organics Citrus & Kale Potent C+E Masque 2 oz NEW Feature: 2 oz
 ID: 7 Optimal name: Lineless Lines No More For Lips by Dr. Brandt for Unisex - 0.25 oz Treatment Feature: 0.25 oz
-ID: 8 Optimal name: Cream for combination and sensitive skin

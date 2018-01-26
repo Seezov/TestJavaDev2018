@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ProductManager implements Comparator<String> {
+public class ProductManager {
 
     public static List<Product> getListOfProducts(JSONArray jsonArray) {
         List<Product> products = new ArrayList<>(jsonArray.length());
@@ -32,24 +32,88 @@ public class ProductManager implements Comparator<String> {
     }
 
     public static String getOptimalName(List<String> names) {
+        List<String> wordsForCurrentNames = getWordsForCurrentNames(names);
 
+        Map<String,Map<String,Integer>> wordToNextWordToNumberOfWord = getWordToNextWordToNumberOfWord(names, wordsForCurrentNames);
 
-        /*ProductManager pm = new ProductManager();
-        names.sort(pm);
-        char first = Character.toUpperCase(names.get(names.size() / 2).charAt(0));
-        String ans = first + names.get(names.size() / 2).substring(1);*/
-        List<String> wordsForCurrentNames = new ArrayList<>();
+        Map<String,Double> wordToCoef = getWordsToCoef(names, wordsForCurrentNames);
+        
+        Map<String,Integer> nameToNumberOfDiffWords = getNumberOfDiffrentWords(names);
+        
+        Map<String,Double> nameToCoef = getNameToCoef(names, wordToCoef, nameToNumberOfDiffWords);
+
+        return getAnswer(nameToCoef);
+    }
+
+    private static  Map<String,Map<String,Integer>>  getWordToNextWordToNumberOfWord(List<String> names, List<String> wordsForCurrentNames) {
+        Map<String,Map<String,Integer>> wordToNextWordToNumberOfWord = new HashMap<>();
         String[] words;
-
-        Map<String,Double> wordCoefMap = new HashMap<>();
-        for (String name : names) {
-            words = name.split("\\s+");
-            for (String word : words) {
-                if (!wordsForCurrentNames.contains(word.toLowerCase())) {
-                    wordsForCurrentNames.add(word.toLowerCase());
+        for (String word : wordsForCurrentNames) {
+            Map<String,Integer> nextWordToNumberOfWord = new HashMap<>();
+            for (String name : names) {
+                words = name.split("\\s+");
+                for (int i = 0; i < words.length -1 ; i++) {
+                    if(word.toLowerCase().equals(words[i].toLowerCase())){
+                        if(!(nextWordToNumberOfWord.get(words[i + 1].toLowerCase()) == null)) {
+                            nextWordToNumberOfWord.put(words[i + 1].toLowerCase(), nextWordToNumberOfWord.get(words[i + 1].toLowerCase()) + 1);
+                        } else {
+                            nextWordToNumberOfWord.put(words[i + 1].toLowerCase(), 1);
+                        }
+                    }
                 }
             }
+            wordToNextWordToNumberOfWord.put(word,nextWordToNumberOfWord);
         }
+        return wordToNextWordToNumberOfWord;
+    }
+
+    private static String getAnswer(Map<String, Double> nameToCoef) {
+        String ans = "";
+        double maxCoef = Double.MIN_VALUE;
+        for(Map.Entry<String, Double> entry : nameToCoef.entrySet()) {
+            String key = entry.getKey();
+            Double value = entry.getValue();
+            if(value > maxCoef) {
+                ans = key;
+                maxCoef = value;
+            }
+        }
+        return ans;
+    }
+
+    private static Map<String,Double> getNameToCoef(List<String> names, Map<String, Double> wordToCoef, Map<String, Integer> nameToNumberOfDiffWords) {
+        Map<String,Double> nameToCoef = new HashMap<>();
+        String[] words;
+        for (String name : names) {
+            words = name.split("\\s+");
+            double coef = 1;
+            for (String word : words) {
+                coef += wordToCoef.get(word.toLowerCase());
+            }
+            nameToCoef.put(name, coef * nameToNumberOfDiffWords.get(name));
+        }
+        return nameToCoef;
+    }
+
+    private static Map<String,Integer> getNumberOfDiffrentWords(List<String> names) {
+        Map<String,Integer> nameToNumberOfDiffWords = new HashMap<>();
+        String[] words;
+        for (String name : names) {
+            words = name.split("\\s+");
+            List<String> wordsForCurrentName = new ArrayList<>();
+            for (String word : words) {
+                if (!wordsForCurrentName.contains(word.toLowerCase())) {
+                    wordsForCurrentName.add(word.toLowerCase());
+                }
+            }
+            nameToNumberOfDiffWords.put(name, wordsForCurrentName.size());
+        }
+        return nameToNumberOfDiffWords;
+    }
+
+    private static Map<String,Double> getWordsToCoef(List<String> names, List<String> wordsForCurrentNames) {
+        Map<String,Double> wordToCoef = new HashMap<>();
+        String[] words;
         for (String currentWord : wordsForCurrentNames) {
             int numberOfEnters = 0;
             for (String name : names) {
@@ -61,48 +125,23 @@ public class ProductManager implements Comparator<String> {
                 }
             }
             double coef = numberOfEnters / (double)names.size();
-            wordCoefMap.put(currentWord, coef);
+            wordToCoef.put(currentWord, coef);
         }
-        Map<String,Integer> nameNumberOfDiffWords = new HashMap<>();
-        for (String name : names) {
-            words = name.split("\\s+");
-            List<String> wordsForCurrentName = new ArrayList<>();
-            for (String word : words) {
-                if (!wordsForCurrentName.contains(word.toLowerCase())) {
-                    wordsForCurrentName.add(word.toLowerCase());
-                }
-            }
-            nameNumberOfDiffWords.put(name, wordsForCurrentName.size());
-        }
-        Map<String,Double> nameCoefMap = new HashMap<>();
-        for (String name : names) {
-            words = name.split("\\s+");
-            double coef = 1;
-            for (String word : words) {
-                coef += wordCoefMap.get(word.toLowerCase());
-            }
-            nameCoefMap.put(name, coef * nameNumberOfDiffWords.get(name));
-        }
-        String ans = null;
-        double maxCoef = Double.MIN_VALUE;
-        for(Map.Entry<String, Double> entry : nameCoefMap.entrySet()) {
-            String key = entry.getKey();
-            Double value = entry.getValue();
-            if(value > maxCoef){
-                ans = key;
-                maxCoef = value;
-            }
-            // do what you have to do here
-            // In your case, another loop.
-        }
-        return ans;
+        return wordToCoef;
     }
 
-    private static void printWords(List<String> wordsForCurrentNames) {
-        for (String wordsForCurrentName : wordsForCurrentNames) {
-            System.out.print(wordsForCurrentName + " ");
+    private static ArrayList<String> getWordsForCurrentNames(List<String> names) {
+        ArrayList<String> wordsForCurrentNames = new ArrayList<>();
+        String[] words;
+        for (String name : names) {
+            words = name.split("\\s+");
+            for (String word : words) {
+                if (!wordsForCurrentNames.contains(word.toLowerCase())) {
+                    wordsForCurrentNames.add(word.toLowerCase());
+                }
+            }
         }
-        System.out.println();
+        return wordsForCurrentNames;
     }
 
     public static String getFeature(Pattern pattern, String optimalName) {
@@ -114,8 +153,4 @@ public class ProductManager implements Comparator<String> {
         return feature;
     }
 
-    @Override
-    public int compare(String s1, String s2) {
-        return s1.length() - s2.length();
-    }
 }

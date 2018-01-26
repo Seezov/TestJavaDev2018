@@ -27,6 +27,7 @@ public class Main {
         for (Product product : products) {
             // Finding optimal name
             String optimalName = ProductManager.getOptimalName(product.getNames());
+            System.out.println(optimalName);
             // Getting feature from optimal name
             String feature = ProductManager.getFeature(pattern, optimalName);
             product.setFeature(feature);

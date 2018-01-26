@@ -6,7 +6,8 @@
       "B. Kamins Purifying Toner-6 oz.",
       "B. Kamins Hydrogen-ion Moisturizing Toner oily skin 8.oz",
       "B. Kamins Chemist - Purifying Toner",
-      "B Kamins Purifying Toner 6oz"
+      "B Kamins Purifying Toner 6oz",
+      "Kamins Kamins Kamins Kamins Kamins Kamins Kamins Kamins Kamins Kamins Kamins Kamins Kamins"
     ]
   },
   {
@@ -116,7 +117,14 @@
       "Dr. Brandt 13379491801 Lineless Lines No More For Lips - 7.5g-0.25oz",
       "Dr Brandt Lineless Lines No More for Lips 0.25oz",
       "Dr. Brandt Xtend Your Youth Lip Smoother 7.5g",
-      "Dr. Brandt Xtend Your Youth Lip Smoother (7.5ml)"
+      "Dr. Brandt Xtend Your Youth Lip Smoother (7.5ml)",
     ]
-  }
+  },
+  {
+      "id": 8,
+      "names": [
+        "Moisturizing cream for normal skin",
+        "Cream for combination and sensitive skin"
+      ]
+    }
 ]

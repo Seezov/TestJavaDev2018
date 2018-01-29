@@ -6,7 +6,7 @@
       "B. Kamins Purifying Toner-6 oz.",
       "B. Kamins Hydrogen-ion Moisturizing Toner oily skin 8.oz",
       "B. Kamins Chemist - Purifying Toner",
-      "B Kamins Purifying Toner 6oz",
+      "B Kamins Purifying Toner 6oz"
     ]
   },
   {

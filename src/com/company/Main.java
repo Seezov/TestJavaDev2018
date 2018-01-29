@@ -23,14 +23,13 @@ public class Main {
         // Using JSON data to create a list of products
         List<Product> products = ProductManager.getListOfProducts(jsonArray);
         // Using RegEx to find feature
-        Pattern pattern = Pattern.compile("\\d*[.]*\\d+ *[a-z]+");
+        Pattern pattern = Pattern.compile("(?i)\\d*[.]*\\d+[.]* *[a-z]+");
         for (Product product : products) {
             // Finding optimal name
             String optimalName = ProductManager.getOptimalName(product.getNames());
-            System.out.println(optimalName);
             // Getting feature from optimal name
             String feature = ProductManager.getFeature(pattern, optimalName);
-            product.setFeature(feature);
+            product.setFeature(feature.toLowerCase());
             product.setOptimalName(optimalName);
         }
         // Writing info to output file

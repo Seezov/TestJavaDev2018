@@ -116,7 +116,7 @@
       "Dr. Brandt 13379491801 Lineless Lines No More For Lips - 7.5g-0.25oz",
       "Dr Brandt Lineless Lines No More for Lips 0.25oz",
       "Dr. Brandt Xtend Your Youth Lip Smoother 7.5g",
-      "Dr. Brandt Xtend Your Youth Lip Smoother (7.5ml)",
+      "Dr. Brandt Xtend Your Youth Lip Smoother (7.5ml)"
     ]
   }
 ]

@@ -130,7 +130,6 @@ public class ProductManager {
             wordToCoef.put(currentWord, coef);
         }
         return wordToCoef;
-
         // THIS METHOD IS USING LEMMATIZATION FOR HIGHER ACCURACY BUT IT IS TOO SLOW (>8 sec for product)
         // ANSWERS ARE SIMILAR ON THE TEST FILE
         /*Map<String, Double> wordToCoef = new HashMap<>();

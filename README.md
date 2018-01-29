@@ -1,5 +1,6 @@
 # TestJavaDev2018
 Test Java task for internship
+
 Алгоритм:
 1) Считывается файл JSON.
 2) Создаётся массив объектов типа Product.

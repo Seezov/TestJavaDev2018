@@ -1,6 +1,7 @@
 package com.company.managers;
 
 import com.company.entities.Product;
+import edu.stanford.nlp.simple.Sentence;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +34,8 @@ public class ProductManager {
 
     public static String getOptimalName(List<String> names) {
         List<String> wordsForCurrentNames = getWordsForCurrentNames(names);
+
+
 
         Map<String,Map<String,Integer>> wordToNextWordToNumberOfWord = getWordToNextWordToNumberOfWord(names, wordsForCurrentNames);
 
@@ -113,13 +116,16 @@ public class ProductManager {
 
     private static Map<String,Double> getWordsToCoef(List<String> names, List<String> wordsForCurrentNames) {
         Map<String,Double> wordToCoef = new HashMap<>();
-        String[] words;
         for (String currentWord : wordsForCurrentNames) {
             int numberOfEnters = 0;
             for (String name : names) {
-                words = name.split("\\s+");
-                for (String word : words) {
-                    if (currentWord.equals(word.toLowerCase())) {
+                // The process of reducing words to their common root is called lemmatization.
+                // A lemmatizer will map words like eaten, eats and ate to eat.
+                // Here i'm using Stanford CoreNLP to detect words with common root and register them as one entrance
+                Sentence sentence = new Sentence(name.toLowerCase());
+                List<String> currentLemmas = sentence.lemmas();
+                for (String lemma : currentLemmas) {
+                    if (currentWord.toLowerCase().equals(lemma)) {
                         numberOfEnters++;
                     }
                 }
@@ -152,5 +158,4 @@ public class ProductManager {
         }
         return feature;
     }
-
 }
